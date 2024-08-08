@@ -1,25 +1,21 @@
-const http = require('http')
+const express = require('express')
+const path = require('path')
+const app = express()
 
-const server = http.createServer((req, res)=>{
-    const url = req.url;
-    // home page
-    if(url === '/') {
-        res.writeHead(200, {'content-type':'text/html'})
-        res.write('<h1>Home Page</h1>')
-        res.end()
-    } 
-    // about page
-    else if(url === '/about') {
-        res.writeHead(200, {'content-type':'text/html'})
-        res.write('<h1>About Page</h1>')
-        res.end()
-    } else {
-        res.writeHead(404, {'content-type':'text/html'})
-        res.write('<h1>Page Not Found</h1>')
-        res.end()
-    }
+
+// setup static and middleware 
+app.use(express.static('./public'))
+
+
+// app.get('/',(req,res)=>{
+//     res.status(200).sendFile(path.resolve(__dirname, './navbar-app/index.html'))
+// })
+
+
+app.all('*',(req,res)=>{
+    res.status(404).send('resource not found')
 })
 
-server.listen(5000, ()=>{
-    console.log('Server running on port: 5000')
+app.listen(5000, ()=> {
+    console.log('Server running at port: 5000')
 })
