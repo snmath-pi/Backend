@@ -1,0 +1,4 @@
+no sql database (unlike sql databases(made of rows and columns))
+
+no sql uses collections and documents (very much like json objects like key values)
+1. can be used with js 
