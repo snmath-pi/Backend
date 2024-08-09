@@ -1,21 +1,18 @@
 const express = require('express')
-const path = require('path')
 const app = express()
+const people = require('./routes/people')
+const auth = require('./routes/auth')
+// parse form data
+app.use(express.json())
 
+app.use(express.urlencoded({extended:false}))
+// static assests
+app.use(express.static('./methods-public'))
+app.use('/login', auth)
+app.use('/api/people',people)
 
-// setup static and middleware 
-app.use(express.static('./public'))
-
-
-// app.get('/',(req,res)=>{
-//     res.status(200).sendFile(path.resolve(__dirname, './navbar-app/index.html'))
-// })
-
-
-app.all('*',(req,res)=>{
-    res.status(404).send('resource not found')
-})
 
 app.listen(5000, ()=> {
-    console.log('Server running at port: 5000')
+    console.log('Server starting at port 5000....');
+    
 })
